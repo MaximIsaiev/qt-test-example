@@ -7,6 +7,10 @@ class SmartTest: public QObject
 
 private slots:
     void initTestCase();
-    void exampleTest();
+    void threeConsecutiveOddsWithOnlyEven();
+    void threeConsecutiveOddsWithThreeOdds();
+    void threeConsecutiveOddsWithOnlyZeros();
+    void threeConsecutiveOddsWithThreeNegativeOdds();
     void cleanupTestCase();
+    void cleanup();
 };
