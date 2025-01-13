@@ -1,6 +1,6 @@
 #pragma once
 #include <QtTest/QTest>
-
+#include <cmath>
 class SmartTest: public QObject
 {
     Q_OBJECT
@@ -11,6 +11,9 @@ private slots:
     void threeConsecutiveOddsWithThreeOdds();
     void threeConsecutiveOddsWithOnlyZeros();
     void threeConsecutiveOddsWithThreeNegativeOdds();
+    void threeConsecutiveOddsWithNan();
+    void threeConsecutiveOdds_data();
+    void threeConsecutiveOdds();
+    
     void cleanupTestCase();
-    void cleanup();
 };

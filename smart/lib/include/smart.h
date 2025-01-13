@@ -11,5 +11,5 @@ public:
     ~Smart() override;
 
     static bool threeConsecutiveOdds(std::vector<int> &arr);
-
+    static bool threeConsecutiveOdds(std::vector<double> &arr);
 };
