@@ -1,6 +1,5 @@
 #pragma once
 #include <QtTest/QTest>
-#include <cmath>
 class SmartTest: public QObject
 {
     Q_OBJECT
