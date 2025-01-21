@@ -10,6 +10,6 @@ public:
     explicit Smart(QObject *parent = nullptr);
     ~Smart() override;
 
-    static bool threeConsecutiveOdds(std::vector<int> &arr);
+    static bool threeConsecutiveOdds(const std::vector<int> &arr);
 
 };

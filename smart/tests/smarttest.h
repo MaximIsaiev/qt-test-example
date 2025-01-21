@@ -7,6 +7,7 @@ class SmartTest: public QObject
 
 private slots:
     void initTestCase();
+    //void testData();
     void exampleTest();
     void cleanupTestCase();
 };

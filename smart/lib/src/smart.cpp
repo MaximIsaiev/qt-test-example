@@ -1,6 +1,6 @@
 #include "smart.h"
 
-bool Smart::threeConsecutiveOdds(std::vector<int> &arr)
+bool Smart::threeConsecutiveOdds(const std::vector<int> &arr)
 {
     int count = 0;
     for (const auto &val : arr) {

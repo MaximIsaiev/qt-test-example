@@ -16,5 +16,4 @@ add_subdirectory(concurrent)
 
 target_link_libraries(QtTestExample
     Qt5::Core
-    smartlib
 )
