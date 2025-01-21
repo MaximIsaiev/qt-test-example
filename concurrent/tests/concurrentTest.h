@@ -12,7 +12,9 @@ class concurrentTest : public QObject
 
 private slots:
     void initTestCase();
-    void exampleTest();
+    void exampleTest1();
+    void exampleTest2();
+    void exampleTest3();
     void cleanupTestCase();
 };
 
