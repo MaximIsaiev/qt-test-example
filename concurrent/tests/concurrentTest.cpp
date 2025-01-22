@@ -26,48 +26,24 @@ int concurrentTest::startThreads(const std::vector<int> &order) {
         result += 3;
     };
 
+    std::vector<std::thread> threads;
+
     if (order.size() != 3) {
         return -1;
     } else {
-        threadArgs args1;
-        threadArgs args2;
-        threadArgs args3;
-
-        if (order.at(0) == 1) {
-            args1 = threadArgs(&Concurrent::first, printFirst);
-            if (order.at(1) == 2) {
-                args2 = threadArgs (&Concurrent::second, printSecond);
-                args3 = threadArgs(&Concurrent::third, printThird);
+        for (int i = 0; i < order.size(); i++){
+            if (order.at(i) == 1) {
+                threads.emplace_back(std::thread (&Concurrent::first, &concurrent, printFirst));
+            } else if (order.at(i) == 2){
+                threads.emplace_back(std::thread (&Concurrent::second, &concurrent, printSecond));
             } else {
-                args3 = threadArgs (&Concurrent::second, printSecond);
-                args2 = threadArgs(&Concurrent::third, printThird);
-            }
-        } else if (order.at(0) == 2) {
-            args2 = threadArgs(&Concurrent::first, printFirst);
-            if (order.at(1) == 1) {
-                args1 = threadArgs (&Concurrent::second, printSecond);
-                args3 = threadArgs(&Concurrent::third, printThird);
-            } else {
-                args3 = threadArgs (&Concurrent::second, printSecond);
-                args1 = threadArgs(&Concurrent::third, printThird);
-            }
-        } else {
-            args3 = threadArgs(&Concurrent::first, printFirst);
-            if (order.at(1) == 1) {
-                args1 = threadArgs (&Concurrent::second, printSecond);
-                args2 = threadArgs(&Concurrent::third, printThird);
-            } else {
-                args2 = threadArgs (&Concurrent::second, printSecond);
-                args1 = threadArgs(&Concurrent::third, printThird);
+                threads.emplace_back(std::thread (&Concurrent::third, &concurrent, printThird));
             }
         }
 
-        std::thread thread1(args1.first, &concurrent, args1.second);
-        std::thread thread2(args2.first, &concurrent, args2.second);
-        std::thread thread3(args3.first, &concurrent, args3.second);
-        thread1.join();
-        thread2.join();
-        thread3.join();
+        for (int i = 0; i < order.size(); i++){
+            threads.at(i).join();
+        }
 
         return result;
     }
