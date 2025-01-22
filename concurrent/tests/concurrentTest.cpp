@@ -3,6 +3,7 @@
 #include "concurrentTest.h"
 
 int result = 0;
+using threadArgs = std::pair <void (Concurrent::*)(std::function<void()>), std::function<void()>>;
 
 void concurrentTest::initTestCase() {
     qDebug("Called before everything else.");
@@ -28,57 +29,36 @@ int concurrentTest::startThreads(const std::vector<int> &order) {
     if (order.size() != 3) {
         return -1;
     } else {
-        std::pair <void (Concurrent::*)(std::function<void()>), std::function<void()>> args1;
-        std::pair <void (Concurrent::*)(std::function<void()>), std::function<void()>> args2;
-        std::pair <void (Concurrent::*)(std::function<void()>), std::function<void()>> args3;
+        threadArgs args1;
+        threadArgs args2;
+        threadArgs args3;
 
         if (order.at(0) == 1) {
-            args1.first = &Concurrent::first;
-            args1.second = printFirst;
+            args1 = threadArgs(&Concurrent::first, printFirst);
             if (order.at(1) == 2) {
-                args2.first = &Concurrent::second;
-                args2.second = printSecond;
-
-                args3.first = &Concurrent::third;
-                args3.second = printThird;
+                args2 = threadArgs (&Concurrent::second, printSecond);
+                args3 = threadArgs(&Concurrent::third, printThird);
             } else {
-                args3.first = &Concurrent::second;
-                args3.second = printSecond;
-
-                args2.first = &Concurrent::third;
-                args2.second = printThird;
+                args3 = threadArgs (&Concurrent::second, printSecond);
+                args2 = threadArgs(&Concurrent::third, printThird);
             }
         } else if (order.at(0) == 2) {
-            args2.first = &Concurrent::first;
-            args2.second = printFirst;
+            args2 = threadArgs(&Concurrent::first, printFirst);
             if (order.at(1) == 1) {
-                args1.first = &Concurrent::second;
-                args1.second = printSecond;
-
-                args3.first = &Concurrent::third;
-                args3.second = printThird;
+                args1 = threadArgs (&Concurrent::second, printSecond);
+                args3 = threadArgs(&Concurrent::third, printThird);
             } else {
-                args3.first = &Concurrent::second;
-                args3.second = printSecond;
-
-                args1.first = &Concurrent::third;
-                args1.second = printThird;;
+                args3 = threadArgs (&Concurrent::second, printSecond);
+                args1 = threadArgs(&Concurrent::third, printThird);
             }
         } else {
-            args3.first = &Concurrent::first;
-            args3.second = printFirst;
+            args3 = threadArgs(&Concurrent::first, printFirst);
             if (order.at(1) == 1) {
-                args1.first = &Concurrent::second;
-                args1.second = printSecond;
-
-                args2.first = &Concurrent::third;
-                args2.second = printThird;
+                args1 = threadArgs (&Concurrent::second, printSecond);
+                args2 = threadArgs(&Concurrent::third, printThird);
             } else {
-                args2.first = &Concurrent::second;
-                args2.second = printSecond;
-
-                args1.first = &Concurrent::third;
-                args1.second = printThird;
+                args2 = threadArgs (&Concurrent::second, printSecond);
+                args1 = threadArgs(&Concurrent::third, printThird);
             }
         }
 
