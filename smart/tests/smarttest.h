@@ -7,7 +7,8 @@ class SmartTest: public QObject
 
 private slots:
     void initTestCase();
-    //void testData();
     void exampleTest();
+    void tableTest_data();
+    void tableTest();
     void cleanupTestCase();
 };

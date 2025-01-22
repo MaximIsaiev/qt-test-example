@@ -9,12 +9,11 @@
 class concurrentTest : public QObject
 {
     Q_OBJECT
-
 private slots:
     void initTestCase();
-    void exampleTest1();
-    void exampleTest2();
-    void exampleTest3();
+    int startThreads(const std::vector<int>&);
+    void tableTest_data();
+    void tableTest();
     void cleanupTestCase();
 };
 
