@@ -1,23 +1,30 @@
 #include <smart.h>
 #include "smarttest.h"
-void SmartTest::initTestCase()
-{
-    qDebug("Called before everything else.");
+
+void SmartTest::tableTest_data() {
+    QTest::addColumn<QString>("array");
+    QTest::addColumn<bool>("result");
+
+    std::vector<int> arr1{3, 3, 3};
+    std::vector<int> arr2{3, 2, 3};
+    std::vector<int> arr3{-3, 1, -3};
+
+    QTest::newRow("che-to tam 1") << "true"  << Smart::threeConsecutiveOdds(arr1);
+    QTest::newRow("che-to tam 2") << "false"  << Smart::threeConsecutiveOdds(arr2);
+    QTest::newRow("che-to tam 3") << "true"  << Smart::threeConsecutiveOdds(arr3);
 }
 
-void SmartTest::cleanupTestCase()
+void SmartTest::tableTest()
 {
-    qDebug("Called after myFirstTest and mySecondTest.");
+    QFETCH(QString, array);
+    QFETCH(bool, result);
+    bool expected = static_cast<QVariant>(array).toBool();
+
+    QCOMPARE(result, expected);
 }
 
-void SmartTest::exampleTest()
-{
-    std::vector<int> arr {2,6,4,1};
-    std::vector<int> arr1 {1,2,34,3,4,5,7,23,12};
-    Smart smart;
-    QVERIFY(!Smart::threeConsecutiveOdds(arr));
-    QVERIFY(Smart::threeConsecutiveOdds(arr1));
-}
+
+
 
 void SmartTest::test1() {
     std::vector<int> arr{3, 3, 3};
@@ -39,7 +46,6 @@ void SmartTest::highIntTest() {
 
 void SmartTest::negativeIntTest() {
     std::vector<int> arr{1, 4, 5, -3, 7, 8};
-    qDebug("It should be true, right?");
     QVERIFY(Smart::threeConsecutiveOdds(arr));
 }
 
