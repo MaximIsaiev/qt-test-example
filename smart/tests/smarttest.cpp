@@ -2,25 +2,20 @@
 #include "smarttest.h"
 
 void SmartTest::tableTest_data() {
-    QTest::addColumn<QString>("array");
     QTest::addColumn<bool>("result");
+    QTest::addColumn<std::vector<int>>("array");
 
-    std::vector<int> arr1{3, 3, 3};
-    std::vector<int> arr2{3, 2, 3};
-    std::vector<int> arr3{-3, 1, -3};
-
-    QTest::newRow("che-to tam 1") << "true"  << Smart::threeConsecutiveOdds(arr1);
-    QTest::newRow("che-to tam 2") << "false"  << Smart::threeConsecutiveOdds(arr2);
-    QTest::newRow("che-to tam 3") << "true"  << Smart::threeConsecutiveOdds(arr3);
+    QTest::newRow("che-to tam 1") <<  true   << (std::vector<int>) {3, 3, 3};
+    QTest::newRow("che-to tam 2") <<  false  << (std::vector<int>) {3, 2, 3};
+    QTest::newRow("che-to tam 3") <<  true   << (std::vector<int>) {-3, 1, -3};
 }
 
 void SmartTest::tableTest()
 {
-    QFETCH(QString, array);
     QFETCH(bool, result);
-    bool expected = static_cast<QVariant>(array).toBool();
+    QFETCH(std::vector<int>, array);
 
-    QCOMPARE(result, expected);
+    QCOMPARE(Smart::threeConsecutiveOdds(array), result);
 }
 
 
