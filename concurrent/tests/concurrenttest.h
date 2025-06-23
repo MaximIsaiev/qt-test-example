@@ -6,5 +6,7 @@ class ConcurrentTest : public QObject
     Q_OBJECT
 
 private slots:
-    void tempTest();
+    void defaultTest();
+    void sleepTest();
 };
+
