@@ -11,10 +11,10 @@ find_package(Qt5 COMPONENTS
 
 add_executable(QtTestExample main.cpp)
 
-add_subdirectory(smart)
 add_subdirectory(concurrent)
+
 
 target_link_libraries(QtTestExample
     Qt5::Core
-    smartlib
+    concurrentlib
 )
