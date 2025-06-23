@@ -1,10 +1,13 @@
 #include "smart.h"
 
+
+
+
 bool Smart::threeConsecutiveOdds(std::vector<int> &arr)
 {
     int count = 0;
     for (const auto &val : arr) {
-        if (val % 2 == 1)
+        if (val % 2 == 1 || val % 2 == -1)
             count++;
         else
             count = 0;
@@ -15,6 +18,8 @@ bool Smart::threeConsecutiveOdds(std::vector<int> &arr)
 
     return false;
 }
+
+
 
 Smart::Smart(QObject *parent) :
     QObject(parent)
