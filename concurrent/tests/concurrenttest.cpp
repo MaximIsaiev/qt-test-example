@@ -2,6 +2,54 @@
 #include <thread>
 #include "concurrenttest.h"
 
+void ConcurrentTest::ddtest_data() {
+    QTest::addColumn<std::vector<int>>("order");
+    QTest::addColumn<QString>("result");
+    QString expectation = "firstsecondthird";
+
+    QTest::addRow("Order: 1, 2, 3") << std::vector<int> {1, 2, 3} << expectation;
+    QTest::addRow("Order: 1, 3, 2") << std::vector<int> {1, 3, 2} << expectation;
+    QTest::addRow("Order: 2, 1, 3") << std::vector<int> {2, 1, 3} << expectation;
+    QTest::addRow("Order: 2, 3, 2") << std::vector<int> {2, 3, 1} << expectation;
+    QTest::addRow("Order: 3, 1, 2") << std::vector<int> {3, 1, 2} << expectation;
+    QTest::addRow("Order: 3, 2, 1") << std::vector<int> {3, 2, 1} << expectation;
+}
+
+void ConcurrentTest::ddtest() {
+    QFETCH(std::vector<int>, order);
+    QFETCH(QString, result);
+    Concurrent con;
+    QString output;
+    std::function<void()> first = [&output]()
+    {
+        output += "first";
+    };
+    std::function<void()> second = [&output]()
+    {
+        output += "second";
+    };
+    std::function<void()> third = [&output]()
+    {
+        output += "third";
+    };
+    std::vector<std::thread> threads;
+    for(int i = 0; i < 3; ++i) {
+        if(order[i] == 1) {
+            threads.emplace_back(&Concurrent::first, &con, first);
+        }
+        if(order[i] == 2) {
+            threads.emplace_back(&Concurrent::second, &con, second);
+        }
+        if(order[i] == 3) {
+            threads.emplace_back(&Concurrent::third, &con, third);
+        }
+    }
+    threads[0].join();
+    threads[1].join();
+    threads[2].join();
+
+    QCOMPARE(output, result);
+}
 
 void ConcurrentTest::defaultTest()
 {
