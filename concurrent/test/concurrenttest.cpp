@@ -35,7 +35,8 @@ void ConcurrentTest::testOrder()
     std::function<void()> printThird = [&result]() {result += "third";};
 
     std::vector<std::thread> threads;
-    for(const int &num : order) {
+    for (const int &num : order)
+    {
         switch(num)
         {
         case 1:
@@ -50,7 +51,7 @@ void ConcurrentTest::testOrder()
         }
     }
 
-    for(auto &thread : threads) thread.join();
+    for (auto &thread : threads) thread.join();
 
     QCOMPARE(QString::fromStdString(result), QString("firstsecondthird"));
 }
