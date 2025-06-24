@@ -9,4 +9,7 @@ private slots:
     void initTestCase();
     void exampleTest();
     void cleanupTestCase();
+    void threeConsecutiveOdds_data();
+    void threeConsecutiveOdds();
+    void test1();
 };
