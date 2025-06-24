@@ -2,7 +2,8 @@
 #include <thread>
 #include "concurrenttest.h"
 
-void ConcurrentTest::ddtest_data() {
+void ConcurrentTest::ddtest_data()
+{
     QTest::addColumn<std::vector<int>>("order");
     QTest::addColumn<QString>("result");
     QString expectation = "firstsecondthird";
@@ -15,7 +16,8 @@ void ConcurrentTest::ddtest_data() {
     QTest::addRow("Order: 3, 2, 1") << std::vector<int> {3, 2, 1} << expectation;
 }
 
-void ConcurrentTest::ddtest() {
+void ConcurrentTest::ddtest()
+{
     QFETCH(std::vector<int>, order);
     QFETCH(QString, result);
     Concurrent con;
@@ -33,20 +35,20 @@ void ConcurrentTest::ddtest() {
         output += "third";
     };
     std::vector<std::thread> threads;
-    for(int i = 0; i < 3; ++i) {
-        if(order[i] == 1) {
+    for (int i = 0; i < 3; ++i) {
+        if (order[i] == 1) {
             threads.emplace_back(&Concurrent::first, &con, first);
         }
-        if(order[i] == 2) {
+        if (order[i] == 2) {
             threads.emplace_back(&Concurrent::second, &con, second);
         }
-        if(order[i] == 3) {
+        if (order[i] == 3) {
             threads.emplace_back(&Concurrent::third, &con, third);
         }
     }
-    threads[0].join();
-    threads[1].join();
-    threads[2].join();
+    for (std::thread &t : threads) {
+        t.join();
+    }
 
     QCOMPARE(output, result);
 }

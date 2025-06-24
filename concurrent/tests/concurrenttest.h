@@ -15,4 +15,3 @@ private slots:
     void sleepTest3();
     void sleepTest4();
 };
-
